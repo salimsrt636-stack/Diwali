@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#150522">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Happy Diwali, My Bestie! ✨🪔</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Fireworks Canvas -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Sparkler Cursor Canvas -->
+  <canvas id="sparklerCanvas"></canvas>
+
+  <!-- Ambient Glow & Rangoli Background Overlay -->
+  <div class="festive-bg">
+    <div class="rangoli-corner top-left"></div>
+    <div class="rangoli-corner top-right"></div>
+    <div class="rangoli-corner bottom-left"></div>
+    <div class="rangoli-corner bottom-right"></div>
+    <div class="lantern lantern-1">🏮</div>
+    <div class="lantern lantern-2">🏮</div>
+    <div class="lantern lantern-3">🏮</div>
+    <div class="lantern lantern-4">🏮</div>
+  </div>
+
+  <!-- Audio Controls Floating Bar -->
+  <div class="top-controls">
+    <button id="reopenLoginBtn" class="control-btn" title="Change Bestie or Spark Again">
+      <span class="icon">🧨</span> <span class="label">Spark Again</span>
+    </button>
+    <button id="audioToggleBtn" class="control-btn" title="Toggle Sound Effects">
+      <span class="icon">🔊</span> <span class="label">Sound: ON</span>
+    </button>
+    <button id="autoFireworksBtn" class="control-btn active" title="Toggle Auto Fireworks">
+      <span class="icon">🎆</span> <span class="label">Fireworks: ON</span>
+    </button>
+    <button id="sparklerModeBtn" class="control-btn active" title="Toggle Sparkler Cursor Trail">
+      <span class="icon">✨</span> <span class="label">Sparkler: ON</span>
+    </button>
+  </div>
+
+  <!-- ====================================================
+       LOGIN / SPARK THE PATAKA WELCOME PORTAL (FIRST PAGE)
+       ==================================================== -->
+  <div id="loginPortal" class="login-portal-overlay">
+    <div class="portal-card">
+      <div class="portal-badge">🪔 VIP DIWALI GATEWAY 🪔</div>
+      <h1 class="portal-title">Welcome, Bestie!</h1>
+      <p class="portal-subtitle">Ignite the festival of lights with your personal Diwali blast!</p>
+
+      <!-- Bestie Login Details -->
+      <div class="login-form">
+        <div class="form-group">
+          <label for="loginBestieName">🏷️ Who is this wish for?</label>
+          <input type="text" id="loginBestieName" placeholder="Enter bestie's name..." maxlength="30" value="Pinku">
+        </div>
+      </div>
+
+      <!-- Interactive Pataka (Firecracker) to Spark -->
+      <div class="pataka-stage" id="patakaStage">
+        <div class="pataka-object" id="patakaObject">
+          <!-- Fuse Wire -->
+          <div class="pataka-fuse" id="patakaFuse">
+            <div class="fuse-spark" id="fuseSpark"></div>
+          </div>
+          <!-- Pataka Body -->
+          <div class="pataka-body">
+            <div class="pataka-band">🪔 HAPPY DIWALI 🪔</div>
+            <div class="pataka-text" id="bombNameText">PINKU</div>
+            <div class="pataka-sub">💥 SPECIAL DHAMAKA BOMB 💥</div>
+          </div>
+        </div>
+        <p class="pataka-hint" id="patakaStatusText">👇 Click the button or tap Pinku's bomb to spark the fuse & blast open the celebration!</p>
+      </div>
+
+      <!-- Action Button -->
+      <button id="sparkPatakaBtn" class="spark-entry-btn">
+        <span class="btn-icon">🔥</span>
+        <span class="btn-text">SPARK THE PATAKA TO ENTER 🧨</span>
+      </button>
+
+      <div class="portal-footer-note">
+        ✨ Put on your headphones / turn on volume for realistic cracker sound! 🔊
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen Explosion Flash Effect -->
+  <div id="screenFlash" class="screen-flash"></div>
+
+  <!-- Main Content Container -->
+  <main class="main-wrapper">
+
+    <!-- Hero Header -->
+    <header class="hero-section">
+      <div class="sub-badge">🪔 Shubh Deepavali 2026 🪔</div>
+      <h1 class="main-title">Happy Diwali!</h1>
+      <h2 class="bestie-subtitle">Dedicated with Love to <span id="displayName" class="highlight-name">Pinku</span></h2>
+      <p class="hero-tagline">"May your life sparkle with joy, laughter, love, and endless happiness!"</p>
+
+      <!-- Personalize Name Box -->
+      <div class="name-customizer-card">
+        <label for="bestieNameInput">✨ Personalize for your Bestie:</label>
+        <div class="input-group">
+          <input type="text" id="bestieNameInput" placeholder="Enter bestie's name..." maxlength="30" value="Pinku">
+          <button id="updateNameBtn" class="primary-btn">Update Wish 💖</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Interactive Diya Lighting Altar -->
+    <section class="diya-altar-section">
+      <div class="section-badge">Interactive Ritual</div>
+      <h3 class="section-title">Light The 5 Diyas of Friendship</h3>
+      <p class="section-desc">Click on each diya to light up love, joy, health, prosperity, and lifelong bond!</p>
+      
+      <div class="diyas-container">
+        <div class="diya-item" data-index="1" data-blessing="Joy & Laughter">
+          <div class="flame-holder"><div class="flame"></div></div>
+          <div class="diya-base">🪔</div>
+          <span class="diya-label">Laughter</span>
+        </div>
+        <div class="diya-item" data-index="2" data-blessing="Unbreakable Bond">
+          <div class="flame-holder"><div class="flame"></div></div>
+          <div class="diya-base">🪔</div>
+          <span class="diya-label">Bond</span>
+        </div>
+        <div class="diya-item lit" data-index="3" data-blessing="Endless Happiness">
+          <div class="flame-holder"><div class="flame"></div></div>
+          <div class="diya-base">🪔</div>
+          <span class="diya-label">Bestie Diya</span>
+        </div>
+        <div class="diya-item" data-index="4" data-blessing="Bright Success">
+          <div class="flame-holder"><div class="flame"></div></div>
+          <div class="diya-base">🪔</div>
+          <span class="diya-label">Success</span>
+        </div>
+        <div class="diya-item" data-index="5" data-blessing="Eternal Love">
+          <div class="flame-holder"><div class="flame"></div></div>
+          <div class="diya-base">🪔</div>
+          <span class="diya-label">Love</span>
+        </div>
+      </div>
+
+      <div class="altar-status">
+        <span id="litCounter">Diyas Lit: 1 / 5</span>
+        <button id="lightAllBtn" class="subtle-btn">✨ Light All Diyas</button>
+      </div>
+      <div id="altarMessage" class="altar-message">Click the diyas above to illuminate your celebration!</div>
+    </section>
+
+    <!-- Bestie Special Wish Cards -->
+    <section class="wishes-section">
+      <div class="section-badge">From My Heart To Yours</div>
+      <h3 class="section-title">Special Diwali Wishes For <span class="sync-name">Bestie</span></h3>
+
+      <div class="wish-cards-grid">
+        <div class="wish-card glow-card">
+          <div class="card-icon">🪔</div>
+          <h4>Brightest Light in My Life</h4>
+          <p>Just like the diyas dispel darkness, your presence brightens up my dullest days. Thank you for always bringing warmth, crazy smiles, and unconditional love!</p>
+          <div class="card-footer-badge">Forever Partner In Fun</div>
+        </div>
+
+        <div class="wish-card glow-card">
+          <div class="card-icon">🎆</div>
+          <h4>Phuljhadi of Joy & Energy</h4>
+          <p>You are the real sparkler (phuljhadi) of my life—full of endless sparkles, contagious laughter, and wild energy. May your dreams shine as bright as sky rockets!</p>
+          <div class="card-footer-badge">Pure Sunshine ☀️</div>
+        </div>
+
+        <div class="wish-card glow-card">
+          <div class="card-icon">🍬</div>
+          <h4>Sweet As Kaju Katli</h4>
+          <p>This Diwali, may you get heaps of Kaju Katli, Motichoor laddoos, and all the sweets in the universe (as long as you share half of them with me first!).</p>
+          <div class="card-footer-badge">Chief Sweet Stealer 😋</div>
+        </div>
+
+        <div class="wish-card glow-card">
+          <div class="card-icon">✨</div>
+          <h4>Health, Wealth & Grand Success</h4>
+          <p>May Goddess Lakshmi and Lord Ganesha bless you with immense prosperity, peace of mind, great health, and gigantic success in every adventure you pursue!</p>
+          <div class="card-footer-badge">Shubh Deepavali 🌟</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Surprise Interactive Diwali Gift Box -->
+    <section class="gift-section">
+      <div class="section-badge">Surprise Unboxing</div>
+      <h3 class="section-title">A Special Diwali Gift For You 🎁</h3>
+      <p class="section-desc">Tap the festive gift box below to open your personal surprise wish!</p>
+
+      <div class="gift-box-wrapper" id="giftBox">
+        <div class="gift-box">
+          <div class="gift-lid">
+            <div class="ribbon-bow">🎀</div>
+          </div>
+          <div class="gift-body">
+            <div class="ribbon-v"></div>
+            <div class="ribbon-h"></div>
+            <span class="click-hint">Tap to Open! 🪔</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden Letter that pops up when unboxed -->
+      <div class="secret-letter" id="secretLetter">
+        <div class="letter-content">
+          <button class="close-letter-btn" id="closeLetterBtn">&times;</button>
+          <div class="letter-badge">💌 A Heartfelt Letter From Salim For <span class="sync-name">Pinku</span></div>
+          <h3>"True Friendship Has No Boundaries! ✨"</h3>
+          <p class="letter-text">
+            Dearest <span class="sync-name">Pinku</span>,<br><br>
+            I want you to know how truly special you are to me. Even though I am Muslim, for me true friendship, respect, and love come above everything else.<br><br>
+            If we celebrated Diwali at my home, you would definitely be the very first person I'd invite over to light diyas together, burst crackers, and eat all the sweets!<br><br>
+            Festivals are all about sharing happiness, light, and warmth with the people who matter most. Having you as my bestie makes every day brighter and happier. On this auspicious festival of lights, I pray for your lifelong happiness, health, and endless success in everything you do.<br><br>
+            Thank you for being my constant support, partner in laughter, and the truest bestie—here's to a lifetime of crazy fun memories and an unbreakable bond!<br><br>
+            <strong>Happy Diwali, my dearest Pinku! With lots of love, Salim ✨🪔❤️</strong>
+          </p>
+          <div class="letter-actions">
+            <button id="whatsappShareBtn" class="primary-btn whatsapp-btn">
+              <span>📲 Share this Wish on WhatsApp</span>
+            </button>
+            <button id="copyWishBtn" class="secondary-btn">
+              <span>📋 Copy Wish Text</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bestie Friendship Milestones / Fun Badges -->
+    <section class="badges-section">
+      <h3 class="section-title">Bestie Diwali Certified 🏅</h3>
+      <div class="badges-container">
+        <div class="badge-item">
+          <div class="badge-emoji">🤝</div>
+          <div class="badge-name">Crime Partner</div>
+          <div class="badge-desc">Always ready for spontaneous fun</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-emoji">🌟</div>
+          <div class="badge-name">Guiding Light</div>
+          <div class="badge-desc">Giving the best (and wildest) advice</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-emoji">🍿</div>
+          <div class="badge-name">Gossip Champion</div>
+          <div class="badge-desc">Hours-long calls without getting bored</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-emoji">💖</div>
+          <div class="badge-name">Soul Bestie</div>
+          <div class="badge-desc">Friendship that lasts beyond lifetimes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         CRACKER ARCADE WITH DEDICATED SUBHEADINGS
+         ==================================================== -->
+    <section class="cracker-pad-section" id="crackerArcade">
+      <div class="section-badge">Diwali Cracker Arcade</div>
+      <h3 class="section-title">🎆 Pinku's Interactive Cracker Bazaar 🎇</h3>
+      <p class="section-desc">Tap any cracker below to light its fuse and watch special sound & light effects in action!</p>
+
+      <div class="cracker-cards-grid">
+        <!-- 1. The Dhamaka Bomb -->
+        <div class="cracker-card" data-type="bomb">
+          <div class="cracker-icon">💣</div>
+          <h4 class="cracker-title">The Dhamaka Bomb</h4>
+          <div class="cracker-subheading">💥 10,000 Wladi High Decibel Blast</div>
+          <p class="cracker-desc">Super explosive, high-energy blast—just like Pinku's uncontrollable laughter and savage jokes!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="bomb">
+            <span>🔥 Blast The Bomb 💥</span>
+          </button>
+        </div>
+
+        <!-- 2. The Ladi Pataka -->
+        <div class="cracker-card" data-type="pataka">
+          <div class="cracker-icon">🧨</div>
+          <h4 class="cracker-title">The 1000 Ladi Pataka</h4>
+          <div class="cracker-subheading">⚡ Rapid-Fire Non-Stop Chatai</div>
+          <p class="cracker-desc">Fast, non-stop rapid popping that resembles our 3-hour non-stop gossip calls!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="pataka">
+            <span>🧨 Light 1000 Ladi Pataka 🔥</span>
+          </button>
+        </div>
+
+        <!-- 3. The Sky Rocket -->
+        <div class="cracker-card" data-type="rocket">
+          <div class="cracker-icon">🚀</div>
+          <h4 class="cracker-title">The Sky Rocket</h4>
+          <div class="cracker-subheading">🌌 Aasmani Rocket Soaring To Stars</div>
+          <p class="cracker-desc">Shoots into the stratosphere with a whistle! May Pinku's dreams soar straight into the stars!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="rocket">
+            <span>🚀 Launch Sky Rocket ✨</span>
+          </button>
+        </div>
+
+        <!-- 4. The Golden Anar (Flowerpot) -->
+        <div class="cracker-card" data-type="flowerpot">
+          <div class="cracker-icon">🪴</div>
+          <h4 class="cracker-title">The Shahi Anar</h4>
+          <div class="cracker-subheading">✨ Fountain of Golden Joy & Light</div>
+          <p class="cracker-desc">Sprays a 10-foot tall fountain of radiant golden sparks, lighting up everyone's face!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="flowerpot">
+            <span>🪴 Light Golden Anar 🌟</span>
+          </button>
+        </div>
+
+        <!-- 5. Zameen Chakri -->
+        <div class="cracker-card" data-type="chakri">
+          <div class="cracker-icon">💫</div>
+          <h4 class="cracker-title">The Zameen Chakri</h4>
+          <div class="cracker-subheading">🌀 360° Whirlwind of Sparks</div>
+          <p class="cracker-desc">Spins furiously on the ground in circles of vivid emerald and electric magenta sparks!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="chakri">
+            <span>💫 Spin Ground Chakri 🌪️</span>
+          </button>
+        </div>
+
+        <!-- 6. Magical Phuljhadi (Sparkler) -->
+        <div class="cracker-card" data-type="sparkler">
+          <div class="cracker-icon">✨</div>
+          <h4 class="cracker-title">The Magic Sparkler</h4>
+          <div class="cracker-subheading">💖 Handheld Radiance of Warmth</div>
+          <p class="cracker-desc">Gentle, safe, and mesmerizing golden glitter celebrating our sweet and peaceful friendship!</p>
+          <button class="firework-trigger-btn arcade-btn" data-type="sparkler">
+            <span>✨ Light Super Sparkler 🌟</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FEATURE 1: VIRTUAL MITHAI THALI (FEED PINKU SWEETS)
+         ==================================================== -->
+    <section class="mithai-section">
+      <div class="section-badge">Festive Sweet Treat</div>
+      <h3 class="section-title">🍬 Feed Pinku Diwali Sweets! 😋</h3>
+      <p class="section-desc">Click on any sweet from the platter below to feed Pinku and check their sweet counter!</p>
+
+      <div class="mithai-counter-bar">
+        <span>Sweets Eaten by Pinku: <strong id="sweetsCount">0</strong> 🍬</span>
+        <button id="resetMithaiBtn" class="subtle-btn">Reset Platter</button>
+      </div>
+
+      <div class="mithai-platter">
+        <div class="sweet-item" data-sweet="Kaju Katli" data-emoji="💎">
+          <div class="sweet-emoji">💎</div>
+          <div class="sweet-name">Kaju Katli</div>
+          <div class="sweet-tag">Pinku's Favorite</div>
+        </div>
+        <div class="sweet-item" data-sweet="Gulab Jamun" data-emoji="🟤">
+          <div class="sweet-emoji">🟤</div>
+          <div class="sweet-name">Gulab Jamun</div>
+          <div class="sweet-tag">Juicy & Warm</div>
+        </div>
+        <div class="sweet-item" data-sweet="Motichoor Laddoo" data-emoji="🟠">
+          <div class="sweet-emoji">🟠</div>
+          <div class="sweet-name">Motichoor Laddoo</div>
+          <div class="sweet-tag">Festive Classic</div>
+        </div>
+        <div class="sweet-item" data-sweet="Jalebi" data-emoji="🥨">
+          <div class="sweet-emoji">🥨</div>
+          <div class="sweet-name">Crispy Jalebi</div>
+          <div class="sweet-tag">Sweet & Tangy</div>
+        </div>
+        <div class="sweet-item" data-sweet="Rasgulla" data-emoji="⚪">
+          <div class="sweet-emoji">⚪</div>
+          <div class="sweet-name">Soft Rasgulla</div>
+          <div class="sweet-tag">Spongy Delight</div>
+        </div>
+      </div>
+
+      <div id="mithaiReaction" class="mithai-reaction-box">
+        👆 Tap a sweet above to feed Pinku!
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FEATURE 2: PINKU'S DIWALI FRIENDSHIP FORTUNE WHEEL
+         ==================================================== -->
+    <section class="fortune-section">
+      <div class="section-badge">Fun Future Predictions</div>
+      <h3 class="section-title">🔮 Pinku & Salim's Diwali Fortune 🌟</h3>
+      <p class="section-desc">Click the magic crystal ball below to reveal a hilarious and heartwarming prediction for 2026!</p>
+
+      <div class="fortune-card" id="fortuneCard">
+        <div class="fortune-crystal" id="fortuneBall">🔮</div>
+        <div class="fortune-text" id="fortuneText">
+          "Tap the crystal ball or button below to reveal Pinku's Diwali 2026 Fortune!"
+        </div>
+        <button id="revealFortuneBtn" class="primary-btn fortune-btn">
+          ✨ Reveal Next Prediction 🎲
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         FEATURE 3: FLOATING AKASH KANDIL (SKY LANTERN WISH)
+         ==================================================== -->
+    <section class="sky-lantern-section">
+      <div class="section-badge">Auspicious Wish Release</div>
+      <h3 class="section-title">🏮 Release A Sky Lantern For Pinku 🌌</h3>
+      <p class="section-desc">Light up and launch a glowing sky lantern into the starry night carrying Salim's prayer for Pinku!</p>
+
+      <div class="lantern-launch-pad">
+        <div class="flying-lantern" id="flyingLantern">🏮</div>
+        <button id="launchLanternBtn" class="primary-btn lantern-btn">
+          🔥 Ignite & Release Sky Lantern 🚀
+        </button>
+      </div>
+      <p id="lanternStatus" class="lantern-status-text">Click the button to send your illuminated blessing to the stars!</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="festive-footer">
+      <div class="footer-diya">🪔 🪔 🪔</div>
+      <p>Wishing you and your family a safe, eco-friendly, and ultra-joyous Diwali!</p>
+      <p class="signature">Crafted with infinite love by Salim for <span class="sync-name">Pinku</span> ✨</p>
+    </footer>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toastMessage" class="toast">Wish copied to clipboard! ✨</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
